@@ -9,7 +9,6 @@ pub type Events = Vec<Event>;
 pub struct Event {
     pub id: Uuid,
     pub title: String,
-    pub body: String,
     pub kind: String,
     pub description: String,
     pub start_at: DateTime<Local>,
@@ -27,7 +26,6 @@ impl HasId for Event {
 impl Event {
     pub fn new<S: Into<String>>(
         title: S,
-        body: S,
         kind: S,
         description: S,
         start_at: DateTime<Local>,
@@ -37,7 +35,6 @@ impl Event {
         Self {
             id: Uuid::new_v4(),
             title: title.into(),
-            body: body.into(),
             kind: kind.into(),
             description: description.into(),
             start_at,
@@ -89,7 +86,6 @@ mod tests {
         let now = Local::now();
         let event = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             now.checked_add_signed(Duration::hours(1)).unwrap(),
@@ -103,7 +99,6 @@ mod tests {
     fn newest_test() {
         let event = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -113,7 +108,6 @@ mod tests {
         );
         let event1 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -123,7 +117,6 @@ mod tests {
         );
         let event2 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -146,7 +139,6 @@ mod tests {
     fn newest_should_not_mutate() {
         let event = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -156,7 +148,6 @@ mod tests {
         );
         let event1 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -166,7 +157,6 @@ mod tests {
         );
         let event2 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -189,7 +179,6 @@ mod tests {
     fn filter_past_test() {
         let event = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -199,7 +188,6 @@ mod tests {
         );
         let event1 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()
@@ -209,7 +197,6 @@ mod tests {
         );
         let event2 = Event::new(
             "test",
-            "test body",
             "test desc",
             "test",
             Local::now()

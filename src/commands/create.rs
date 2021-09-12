@@ -66,11 +66,10 @@ pub fn create() -> Result<(), Error> {
     let validate_nothing = |_: _| Ok(());
 
     let title = ask_input("title", None, validate_nothing)?;
-    let body = ask_input("body", None, validate_nothing)?;
     let desc = ask_input("description", None, validate_nothing)?;
 
     let mt = ask_input("month", Some(month.to_string()), validate_date(12))?;
-    // TODO: make day match with month
+    // TODO: day based on month
     let d = ask_input("day", Some(day.to_string()), validate_date(31))?;
     let h = ask_input("hour", Some(hour.to_string()), validate_date(23))?;
     let m = ask_input("minute", Some(minute.to_string()), validate_date(59))?;
@@ -81,14 +80,7 @@ pub fn create() -> Result<(), Error> {
     let m_n: u32 = m.parse()?;
 
     let start_at_event = Event::create_start_at(year, mt_n, d_n, h_n, m_n, 0);
-    let event = Event::new(
-        title,
-        body,
-        String::from("prompt"),
-        desc,
-        start_at_event,
-        None,
-    );
+    let event = Event::new(title, String::from("prompt"), desc, start_at_event, None);
 
     print_info(&event);
 
