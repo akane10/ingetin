@@ -48,12 +48,6 @@ impl Event {
         self.start_at < Local::now()
     }
 
-    pub fn _start_in_minutes(&self, m: i64) -> DateTime<Local> {
-        self.start_at
-            .checked_add_signed(Duration::minutes(m))
-            .unwrap()
-    }
-
     pub fn start_in(&self) -> Duration {
         DateTime::signed_duration_since(self.start_at, Local::now())
     }
