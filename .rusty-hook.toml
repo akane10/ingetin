@@ -1,0 +1,6 @@
+[hooks]
+pre-commit = "cargo test && cargo build --release"
+pre-push = "cargo check"
+
+[logging]
+verbose = true
